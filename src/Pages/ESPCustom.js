@@ -1,10 +1,10 @@
 import React from "react";
 
-const ESPPlus = () => {
+const ESPCustom = () => {
     return (
         <div>ESP PLUS Page</div>
     );
 
 }
 
-export default ESPPlus;
+export default ESPCustom;

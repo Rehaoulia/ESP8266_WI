@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import NumberInput from 'semantic-ui-react-numberinput';
 import {
     Container,
@@ -10,13 +11,39 @@ import {
     Accordion,
     Checkbox
 } from "semantic-ui-react";
+import { createAccessPointApi, readSettingsApi } from "../Api/ApiRequests";
 
 
 const AccessPoint = () => {
 
+    const { register, handleSubmit } = useForm();
     const [networkChannelValue, changeChannelValue] = useState(1);
     const [maxConnection, changeMaxConnection] = useState(4);
+    const [hidden, setHidden] = useState(false);
+    const [networkSettings, setNetworkSettings] = useState({});
 
+
+    const saveNetworkSettings = (data) => {
+        const networkSettings = {
+            ssid: data.ssid,
+            password: data.password,
+            networkChannel: networkChannelValue,
+            SimulConnections: maxConnection,
+            hidden: hidden
+        };
+        console.log(networkSettings);
+        createAccessPointApi(networkSettings).then(() => {
+            alert("API Created");
+        })
+    };
+
+    const loadAPSettings = () => {
+        readSettingsApi().then((resp) => {
+            const apSettings = resp.data["accessPoint"];
+            setNetworkSettings([...apSettings]);
+        });
+
+    }
 
     const AccordionContent = (
         <Container>
@@ -28,9 +55,9 @@ const AccessPoint = () => {
                 <label>Number of simultaneous connections</label>
                 <NumberInput value={maxConnection} onChange={changeMaxConnection} minValue={0} maxValue={8} />
             </Form.Field>
-            <Checkbox label="Hidden" />
+            <Checkbox name="hidden" label="Hidden" onChange={(e, data) => setHidden(data.checked)} />
         </Container>
-    )
+    );
 
     const panels = [
         {
@@ -38,7 +65,7 @@ const AccessPoint = () => {
             title: 'Advanced Settings',
             content:
                 { content: AccordionContent }
-        },]
+        },];
 
     return (
         <Container>
@@ -47,7 +74,7 @@ const AccessPoint = () => {
                 <Divider />
                 <Grid container columns={2} padded>
                     <Grid.Column>
-                        <Form>
+                        <Form onSubmit={handleSubmit(saveNetworkSettings)}>
                             <Form.Input
                                 fluid
                                 size="large"
@@ -55,7 +82,7 @@ const AccessPoint = () => {
                                 placeholder='Enter the name of your access point'
                                 id='ssid'
                                 required>
-                                <input maxLength={31} />
+                                <input name="ssid" maxLength={31} {...register('ssid')} value={networkSettings.ssid} />
                             </Form.Input>
                             <Form.Input
                                 fluid
@@ -63,16 +90,19 @@ const AccessPoint = () => {
                                 label='Password'
                                 placeholder='Enter the password of your access point'
                                 id='password' type="password">
-                                <input maxLength={63} />
+                                <input name="password" maxLength={63} {...register('password')} value={networkSettings.password} />
                             </Form.Input>
                             <Accordion as={Form.Field} panels={panels} />
-                            <Form.Button content='Create' type="submit" />
+                            <Container textAlign="center" >
+                                <Form.Button content='Load' onClick={loadAPSettings} />
+                                <Form.Button content='Create' type="submit" />
+                            </Container>
                         </Form>
                     </Grid.Column>
                 </Grid>
             </Segment>
         </Container>
     );
-}
+};
 
 export default AccessPoint;
