@@ -12,7 +12,7 @@ import {
     Checkbox,
 } from "semantic-ui-react";
 import { useState } from "react";
-import { getDateTimeApi } from "../Api/ApiRequests";
+import { changeTimeSettingsApi, getDateTimeApi } from "../Api/ApiRequests";
 import { useEffect } from "react";
 
 const TimeDate = () => {
@@ -38,6 +38,7 @@ const TimeDate = () => {
             utcOffset: utcOffsetValue
         };
         console.log(dateTimechanges);
+        changeTimeSettingsApi(dateTimechanges);
     }
 
     return (
@@ -46,7 +47,6 @@ const TimeDate = () => {
                 <Grid centered padded>
                     <Segment circular color="blue" size="huge">
                         <Header size="large">{dateTime.day}</Header>
-
                     </Segment>
                     <Grid.Row centered columns={3}>
                         <Grid.Column>

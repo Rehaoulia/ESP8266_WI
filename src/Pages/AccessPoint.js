@@ -55,7 +55,9 @@ const AccessPoint = () => {
                 <label>Number of simultaneous connections</label>
                 <NumberInput value={maxConnection} onChange={changeMaxConnection} minValue={0} maxValue={8} />
             </Form.Field>
-            <Checkbox name="hidden" label="Hidden" onChange={(e, data) => setHidden(data.checked)} />
+            <Form.Field>
+                <Checkbox name="hidden" label="Hidden" onChange={(e, data) => setHidden(data.checked)} />
+            </Form.Field>
         </Container>
     );
 

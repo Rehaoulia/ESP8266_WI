@@ -10,7 +10,7 @@ export const AxiosInstance = axios.create({
 
 export const readWifiStatusApi = async () => {
     try {
-        const response = await AxiosInstance.get('/testWifi');
+        const response = await AxiosInstance.get('/api/testWifi');
         return response;
     } catch (error) {
         console.error(error.message);
@@ -19,7 +19,7 @@ export const readWifiStatusApi = async () => {
 
 export const scanNetworksApi = async () => {
     try {
-        const response = await AxiosInstance.get('/scanNetworks');
+        const response = await AxiosInstance.get('/api/scanNetworks');
         return response;
     } catch (error) {
         console.error(error.message);
@@ -28,7 +28,7 @@ export const scanNetworksApi = async () => {
 
 export const listNetworksApi = async () => {
     try {
-        const response = await AxiosInstance.get('/listNetworks');
+        const response = await AxiosInstance.get('/api/listNetworks');
         return response;
     } catch (error) {
         console.error(error.message);
@@ -37,7 +37,7 @@ export const listNetworksApi = async () => {
 
 export const readSettingsApi = async () => {
     try {
-        const response = await AxiosInstance.get('/apsettings');
+        const response = await AxiosInstance.get('/api/apsettings');
         return response;
     } catch (error) {
         console.error(error.message);
@@ -46,7 +46,7 @@ export const readSettingsApi = async () => {
 
 export const connectToNetworkApi = async (wifiCredentials) => {
     try {
-        const response = await AxiosInstance.post('/wifiSetup', wifiCredentials);
+        const response = await AxiosInstance.post('/api/wifiSetup', wifiCredentials);
         return response;
     } catch (error) {
         console.error(error);
@@ -55,7 +55,7 @@ export const connectToNetworkApi = async (wifiCredentials) => {
 
 export const createAccessPointApi = async (networkSettings) => {
     try {
-        const response = await AxiosInstance.post('/apSetup', networkSettings);
+        const response = await AxiosInstance.post('/api/apSetup', networkSettings);
         return response;
     } catch (error) {
         console.error(error);
@@ -64,9 +64,36 @@ export const createAccessPointApi = async (networkSettings) => {
 
 export const getDateTimeApi = async () => {
     try {
-        const response = await AxiosInstance.get('/getCurrentTime');
+        const response = await AxiosInstance.get('/api/getCurrentTime');
         return response;
     } catch (error) {
         console.error(error);
     }
 };
+
+export const changeTimeSettingsApi = async (timeSetitngs) => {
+    try {
+        const response = await AxiosInstance.post('/api/changeTimeSettings', timeSetitngs);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const getComponentsListApi = async () => {
+    try {
+        const response = await AxiosInstance.get('/api/getComponentsList');
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const sendComponentCallbackApi = async (componentCallback) => {
+    try {
+        const response = await AxiosInstance.post('/api/componentCallback', componentCallback);
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+}

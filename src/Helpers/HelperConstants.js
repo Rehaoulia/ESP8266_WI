@@ -1,5 +1,5 @@
 export const LIST_TIMEOUT = 1000;
-export const API_BASE_URL = "/api/";
+export const API_BASE_URL = "/";
 
 export const Timezones = {
     timezones: [

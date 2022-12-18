@@ -207,7 +207,12 @@ const Wifi = () => {
                                 </List>
                             </Modal.Content>
                             <Modal.Actions>
-                                <Button onClick={() => setModalOpen(false)} primary>
+                                <Button
+                                    onClick={() => {
+                                        setModalOpen(false);
+                                        connectToNetwork();
+                                    }}
+                                    primary>
                                     Connect <Icon name='chevron right' />
                                 </Button>
                             </Modal.Actions>
