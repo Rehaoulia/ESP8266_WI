@@ -49,7 +49,7 @@ const AccessPoint = () => {
         <Container>
             <Form.Field>
                 <label>Network Channel</label>
-                <NumberInput value={networkChannelValue} onChange={changeChannelValue} minValue={1} maxValue={13} />
+                <NumberInput value={networkChannelValue} onChange={changeChannelValue} minValue={1} maxValue={14} />
             </Form.Field>
             <Form.Field>
                 <label>Number of simultaneous connections</label>
